@@ -70,12 +70,9 @@ Représentation 	: M:boss: :500->S-m--Tu m'a vaincu aujourd’hui->D-W--2601-58-
 Evénement 		: Si l'ennemi identifié par ennemi1 est mort et que le héro est sur la case 1824, alors crée le boss sur la case 2016, puis retarde l'exécution du joueur de 40 cycles et du scénario de 35 cycles.
 Représentation  : M:ennemi1: :0-AND-H:1824: :->C-M-NYANYANAY-boss-2016->d---40-35
 
-
-O:4: :A->S-m--Fairy : Il se passe qoui, c'est qui ce type !!!!
-O:5: :A->S-m--BOSS : Mes frères et soeurs réjouissez vous! Vous qui en avait assez de vous faire taper dessus par des héros cherchant juste a lot, \n j’ai entendu votre appel, votre détresse , aujourd’hui je vous sauve -30->D-H---4->S-m--Je suis Dormino votre sauveur.\n Joignez vous à moi et prenez la place de ceux que vous appelliez jadis héros
-O:6: :A->d- - -60-700
-
-Pour plus de détails, consultez les classes à l'URL : [[LIEN]]
+Pour plus de détails, vous pouvez consulter : 
+- **Scénarios prédéfinis** : [[LIEN]]
+- **Intrépreteur du scénario** : [[LIEN]]
 
 ## Classes principales :
 ### Movable
