@@ -1,10 +1,10 @@
 
-#Jeu Zelda-Like
+# Jeu Zelda-Like
 ## Présentation
 Ce projet a été réalisé dans le cadre du projet du deuxième semestre. C'est un jeu en 2D développé en JavaFX dans le but d'appliquer nos connaissances en conception et en développement logiciel. Les contributeurs à ce projet sont : 
-- ** Omar FOUDANE **
-- ** Dorian CASSAGNE **
-- ** William LIN **
+- **Omar FOUDANE**
+- **Dorian CASSAGNE**
+- **William LIN**
 
 ## Scénario
 La particularité de ce jeu est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
