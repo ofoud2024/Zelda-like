@@ -1,26 +1,28 @@
 
 ## Architecture MVC
 L'architecture MVC est respectée grâce au concept du Gameloop. La Gameloop se charge de la synchronisation entre le modèle et la vue. A chaque tour du jeu, la carte est mise à jour suite aux actions du joueur ou du scénario. Ces actions sont interprétés dans l'ordre suivant:
-	
 1. Ajout de nouveaux personnages.
 2. Suppression des personnages morts.
 3. Interprétation des différentes actions produites (Attaques, déplacements, etc...).
 
 ## Scénario
-La particularité de notre jeu est que le scénario est rédigé dans un fichier texte, interprété par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modification dans le code.
+La particularité de notre jeu est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
 Par définition, un scénario est une suite d'événements : des actions réalisées lorsqu'une condition est satisfaite.
 
 ### Syntaxe générale
-Afin que le scénario soit interprété correctement, la syntaxe suivante doit être respectée: **CONDITION{-OPERATEUR_LOGIQUE-CONDITION}->ACTION**.
-Les sections suivantes éxpliquent comment rédiger un scénario correcte. Les termes entre {{}} doivent être remplacé par des valeurs cohérentes lors de la rédaction du scénario. Ces termes peuvent être: 
+Afin que le scénario soit interprété correctement, la syntaxe suivante doit être respectée : 
+
+**CONDITION{-OPERATEUR_LOGIQUE-CONDITION...}->ACTION-{ACTION...}**.
+
+Les sections suivantes expliquent comment rédiger un scénario correct. Les termes entre {{}} doivent être remplacés par des valeurs cohérentes lors de la rédaction du scénario. Ces termes sont : 
 - {{message}} : Le texte du message à afficher au joueur.
 - {{Nom-Item}} : Le nom d'item. La liste des items possibles se trouvent dans la classe "model.character.item.factory.ItemFactory".
-- {{Identifiant-Case}} : Récupérable en utilisant l'outil "Scenario-Creator" ou en le calculant à la main : CaseX + CaseY * Nombre-Case-Par-Ligne.
-- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste de tous les types possbiles dans la classe "model.character.enemy.EnemyFactory"
+- {{Identifiant-Case}} : CaseX + CaseY * Nombre-Case-Par-Ligne.
+- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste des types possbiles dans la classe "model.character.enemy.EnemyFactory"
 - {{Identifiant-Monstre}} : Un identifiant unique au monstre ajouté à la map, permettant de le référencer par la suite.
 - {{Type-NPC}} : Définit le type du NPC ou l'image associée à cet NPC. La liste des NPC possibles se trouve dans la classe "model.character.npc.TalkingNPC".
 - {{Message-NPC}} : Le message affiché lorsqu'on parle à un NPC.
-- {{Type-Case}} : Le nouveau décor à placer sur la case (2498 pour rendre la case libre).
+- {{Type-Case}} : Le nouveau décor à placer sur la case (2601 pour rendre la case libre).
 - {{Nom-Map}} : Vous pouvez les retrouver dans la classe  "model.character.item.mapChange.MapChangerEnum".
 - {{Délai-Map}} : Nombre de cycles à attendre avant la prochaine action sur la map.
 - {{Délai-Scénario}} : Nombre de cycles à attendre avant la prochaine exécution du scénario.
@@ -29,14 +31,14 @@ Les sections suivantes éxpliquent comment rédiger un scénario correcte. Les t
 - {{Numéro-Ligne-Action}} : Numéro du ligne dans le fichier texte contenant le scénario.
 
 ### Condition
-On peut combiner plusieurs conditions à l'aide des opérateurs logiques (AND ou OR). Ces opérateurs sont placés juste après la condition. Le réalisateur du scénario peut aussi exprimer la négation d'une condition, en utilisant le caractère "!" comme dans les exemples qui suivent.
+On peut combiner plusieurs conditions à l'aide des opérateurs logiques (AND ou OR). Ces opérateurs sont placés juste après la condition. La négation peut être appliquée sur une condition en utilisant le caractère "!".
 Les conditions compréhensible par ce jeu sont : 
 - **Conditions sur le contenu d'une case** : Vérifie si une case :  
-	- Contient un item : C-{{Identifiant-Case}}-{{Negation}}-I
-	- Est traversable : C-{{Identifiant-Case}}-{{Negation}}-W
-- **Conditions sur les points du vie d'un monstre** : M-{{Identifiant-Monstre}}-{{Négation}}-{{HP-Monstre}}
-- **Conditions sur la position du héro** : H-{{identifiant-Case}}-{{Negation}}-C
-- **Conditions relatives à l'exécution d'un évenement** : O-A-{{Negation}}-{{Numéro-Ligne-Action}}. Cette condition ne sera vraie que lorsque l'événement situé à la ligne {{Numéro-Ligne-Action}} est exécuté dans sa totalité.
+	- Contient un item : C:{{Identifiant-Case}}:{{Negation}}:I.
+	- Est traversable : C:{{Identifiant-Case}}:{{Negation}}:W.
+- **Conditions sur les points du vie d'un monstre** : M:{{Identifiant-Monstre}}:{{Négation}}:{{HP-Monstre}}.
+- **Conditions sur la position du héro** : H:{{identifiant-Case}}:{{Negation}}:C.
+- **Conditions relatives à l'exécution d'un évenement** : O:{{Numéro-Ligne-Action}}:{{Negation}}:A. Cette condition ne sera vraie que lorsque l'événement situé à la ligne {{Numéro-Ligne-Action}} est exécuté dans sa totalité.
 
 
 ### Actions
@@ -45,17 +47,32 @@ Il existe plusieurs types d'actions possibles, à savoir :
 - **Création** : En fonction de l'objet à créer, cette action peut être relative à : 
 	- Un item : C-I-{{Nom-Item}}-{{Identifiant-Case}}. 
 	- Un monstre : C-M-{{Type-Monstre}}-{{Identifiant-Monstre}}-{{Identifiant-Case}}.
-	- Un NPC : C-N-{{Type-NPC}}-{{Message-NPC}}
+	- Un NPC : C-N-{{Type-NPC}}-{{Message-NPC}}.
 - **Suppression** : La suppression peut être relative à plusieurs instances, à savoir :
 	- Un item : D-I--{{Identifiant-Case}}.
 	- Un monstre : D-M--{{Identifiant-Monstre}}.
-	- Une case : D-W--{{Type-Case}}-{{Identifiant-Case}}
-	- Héro : D-H---, Retire le joueur de la map sans le tuer. 
+	- Une case : D-W--{{Type-Case}}-{{Identifiant-Case}}.
+	- Héro : D-H---, retire le joueur de la map sans le tuer. 
 - **Ajout** : 
 	- Equiper un item au héro : A-I-{{Nom-Item}}--.
-	- Faire apparaître le héro sur la map, suite à une suppression par exemple : A-H--{Identifiant-Case}
-- **Changement du Map** : Permet de changer la map : M-C-{{Nom-Map}}
+	- Faire apparaître le héro sur la map, suite à une suppression par exemple : A-H--{Identifiant-Case}.
+- **Changement du Map** : M-C-{{Nom-Map}}.
 - **Retarder l'éxecution** : d- - -{{Nombre-Cycle}}-{{Delai-Secondes}}. Retarde l'exécution du jeu pendant un certain délai.
+
+### Exemples
+Evénement 		: Si l'événement à la ligne 2 est exécuté dans sa totalité, alors Afficher le messsage suivant : "Attention.
+Représentation 	: O:2: :A->S-m--Jeu : Attention, on reçoit une attaque de l'extérieur
+
+Evénement 		: Si les points de vie du boss sont inférieurs à 500, alors affiche le message "Tu m'as vaincu aujourd’hui" puis ouvre une porte à la case 58 puis retire le boss de la map.
+Représentation 	: M:boss: :500->S-m--Tu m'a vaincu aujourd’hui->D-W--2601-58->D-M--boss
+
+Evénement 		: Si l'ennemi identifié par ennemi1 est mort et que le héro est sur la case 1824, alors crée le boss sur la case 2016, puis retarde l'exécution du joueur de 40 cycles et du scénario de 35 cycles.
+Représentation  : M:ennemi1: :0-AND-H:1824: :->C-M-NYANYANAY-boss-2016->d---40-35
+
+
+O:4: :A->S-m--Fairy : Il se passe qoui, c'est qui ce type !!!!
+O:5: :A->S-m--BOSS : Mes frères et soeurs réjouissez vous! Vous qui en avait assez de vous faire taper dessus par des héros cherchant juste a lot, \n j’ai entendu votre appel, votre détresse , aujourd’hui je vous sauve -30->D-H---4->S-m--Je suis Dormino votre sauveur.\n Joignez vous à moi et prenez la place de ceux que vous appelliez jadis héros
+O:6: :A->d- - -60-700
 
 Pour plus de détails, consultez les classes à l'URL : [[LIEN]]
 
