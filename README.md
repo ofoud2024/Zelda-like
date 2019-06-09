@@ -1,12 +1,13 @@
 
-## Architecture MVC
-L'architecture MVC est respectée grâce au concept du Gameloop. La Gameloop se charge de la synchronisation entre le modèle et la vue. A chaque tour du jeu, la carte est mise à jour suite aux actions du joueur ou du scénario. Ces actions sont interprétés dans l'ordre suivant:
-1. Ajout de nouveaux personnages.
-2. Suppression des personnages morts.
-3. Interprétation des différentes actions produites (Attaques, déplacements, etc...).
+#Jeu Zelda-Like
+## Présentation
+Ce projet a été réalisé dans le cadre du projet du deuxième semestre. C'est un jeu en 2D développé en JavaFX dans le but d'appliquer nos connaissances en conception et en développement logiciel. Les contributeurs à ce projet sont : 
+- ** Omar FOUDANE **
+- ** Dorian CASSAGNE **
+- ** William LIN **
 
 ## Scénario
-La particularité de notre jeu est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
+La particularité de ce jeu est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
 Par définition, un scénario est une suite d'événements : des actions réalisées lorsqu'une condition est satisfaite.
 
 ### Syntaxe générale
