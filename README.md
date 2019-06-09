@@ -1,12 +1,9 @@
-# Zelda-like
 
 ## Architecture MVC
 L'architecture MVC est respectée grâce au concept du Gameloop. La Gameloop se charge de la synchronisation entre le modèle et la vue. A chaque tour du jeu, la carte est mise à jour suite aux actions du joueur ou du scénario. Ces actions sont interprétés dans l'ordre suivant:
 	
 1. Ajout de nouveaux personnages.
-
 2. Suppression des personnages morts.
-
 3. Interprétation des différentes actions produites (Attaques, déplacements, etc...).
 
 ## Classes principales :
@@ -23,7 +20,6 @@ Toute attaque est lancée sur une map. Elle contient plusieurs attributs obligat
 Les fonctions les plus importantes d’Attaque sont : 
 
 - **handleMove()** : Définit le comportement de l’attaque en fonction du contenu de la case.
-
 - **handlePlay()** : Effet de l’attaque sur le personnage visé.
 	
 ### GameCharacter
@@ -78,7 +74,7 @@ Les items sont posés sur une case mais n’en empêche pas l'accès. Ils modifi
 	- **Quitter** : Fermer le jeu.
 		
 ## Mécanismes
-- **Flèches directionnelles**: Pour attaquer vers une direction.
+- **Flèches directionnelles** : Pour attaquer vers une direction.
 - **Z, Q, S, D** : Touches directionnelles .
 - **E**: Changer d’attaque (basculer vers  une attaque spéciale …).
 - **CTRL+ESPACE** : Passer un message. Le choix de le rendre plus compliqué est pour s’assurer que le joueur lit le message en entier, vu qu’il contient des informations importantes sur les missions.
@@ -99,4 +95,5 @@ Les items sont posés sur une case mais n’en empêche pas l'accès. Ils modifi
 - **Tower** : Une tourelle qui attaque aléatoirement dans toutes les directions.
 - **IntelligentTower** : Une tourelle qui lance des attaques vers la direction du héro.
 - **StaticBadMonkey** : Un monstre qui ne bouge pas, n’attaque pas et qui est comme un NPC auquel on pourra infliger des dégâts.
+	
 	
