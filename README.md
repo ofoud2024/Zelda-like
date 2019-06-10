@@ -77,8 +77,8 @@ Evénement 	: Si l'ennemi identifié par ennemi1 est mort et que le héro est su
 Représentation  : M:ennemi1: :0-AND-H:1824: :->C-M-NYANYANAY-boss-2016->d---40-35
 
 Pour plus de détails, vous pouvez consulter : 
-- **Scénarios prédéfinis** : [[LIEN]]
-- **Intrépreteur du scénario** : [[LIEN]]
+- **Scénarios prédéfinis** : [JEU/scenario](https://github.com/ofoudane/Zelda-like/tree/master/JEU/scenario)
+- **Intrépreteur du scénario** : [JEU/src/model/scenario](https://github.com/ofoudane/Zelda-like/tree/master/JEU/src/model/scenario)
 
 ### Movable
 Movable est la classe principale dans ce jeu. En effet, movable représente tout objet pouvant se déplacer. Il existe deux sous classes abstraites qui étendent movable: Attaque et GameCharacter. La différence entre ces deux classes est qu'une instance de GameCharacter occupe une case, tandis qu'une instance d'attaque traverse la case sans l'occuper.
