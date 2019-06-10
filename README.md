@@ -9,7 +9,7 @@ Ce projet a été réalisé dans le cadre du projet du deuxième semestre. C'est
 
 ## Classes principales :
 ### Diagramme de classe
-Vous pouvez retrouver le diagramme de classe dans le lien suivant : [[LIEN]]
+Vous pouvez retrouver le diagramme de classe dans le lien suivant : https://github.com/ofoudane/Zelda-like/tree/master/DIAGRAMME_DE_CLASSES
 
 ### Scénario
 La particularité de ce jeu, c'est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
@@ -23,14 +23,14 @@ Afin que le scénario soit interprété correctement, la syntaxe suivante doit �
 
 Les sections suivantes expliquent comment rédiger un scénario correct. Les termes entre {{}} doivent être remplacés par des valeurs cohérentes lors de la rédaction du scénario. Ces termes sont : 
 - {{message}} : Le texte du message à afficher au joueur.
-- {{Nom-Item}} : Le nom d'item. La liste des items possibles se trouvent dans la classe [ItemFactory]().
+- {{Nom-Item}} : Le nom d'item. La liste des items possibles se analysant la classe [ItemFactory](https://github.com/ofoudane/Zelda-like/blob/master/JEU/src/model/character/item/factory/ItemFactory.java).
 - {{Identifiant-Case}} : CaseX + CaseY * Nombre-Case-Par-Ligne.
-- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste des types possbiles dans la classe [EnemyFactory]().
+- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste des types possbiles dans la classe [AttackItemEnum](https://github.com/ofoudane/Zelda-like/blob/master/JEU/src/model/character/item/attack/AttackItemEnum.java).
 - {{Identifiant-Monstre}} : Un identifiant unique au monstre créé, permettant de le référencer par la suite.
-- {{Type-NPC}} : Définit le type du NPC ou l'image associée à cet NPC. La liste des NPC possibles se trouve dans la classe [TalkingNPC]().
+- {{Type-NPC}} : Définit le type du NPC ou l'image associée à cet NPC. La liste des NPC possibles se trouve dans la classe [NPCFactory](https://github.com/ofoudane/Zelda-like/blob/master/JEU/src/model/character/npc/NPCFactory.java).
 - {{Message-NPC}} : Le message affiché lorsqu'on parle à un NPC.
 - {{Type-Case}} : Le nouveau décor à placer sur la case (2601 pour rendre la case libre).
-- {{Nom-Map}} : Il existe actuellement 4 cartes différentes. Elles sont déclarées dans la classe [MapChangerEnum]().
+- {{Nom-Map}} : Il existe actuellement 4 cartes différentes. Elles sont déclarées dans la classe [MapEnum](https://github.com/ofoudane/Zelda-like/blob/master/JEU/src/model/gameMap/MapEnum.java).
 - {{Délai-Map}} : Nombre de cycles à attendre avant l'exécution de la prochaine action sur la map.
 - {{Délai-Scénario}} : Nombre de cycles à attendre avant la prochaine exécution du scénario.
 - {{Négation}} : Si cette variable est remplacé par "!", alors la négation sera appliquée sur la condition à vérifier. 
