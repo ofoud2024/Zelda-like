@@ -6,75 +6,80 @@ Ce projet a été réalisé dans le cadre du projet du deuxième semestre. C'est
 - **Dorian CASSAGNE**
 - **William LIN**
 
-## Scénario
-La particularité de ce jeu est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
+
+## Classes principales :
+### Diagramme de classe
+Vous pouvez retrouver le diagramme de classe dans le lien suivant : [[LIEN]]
+
+### Scénario
+La particularité de ce jeu, c'est que le scénario est rédigé dans des fichiers texte interprétés par la GameLoop. Ainsi, la modification du scénario n'entraînera pas des modifications dans le code.
 Par définition, un scénario est une suite d'événements : des actions réalisées lorsqu'une condition est satisfaite.
 
-### Syntaxe générale
+#### Syntaxe générale
 Afin que le scénario soit interprété correctement, la syntaxe suivante doit être respectée : 
 
 **CONDITION{-OPERATEUR_LOGIQUE-CONDITION...}->ACTION-{ACTION...}**.
 
+
 Les sections suivantes expliquent comment rédiger un scénario correct. Les termes entre {{}} doivent être remplacés par des valeurs cohérentes lors de la rédaction du scénario. Ces termes sont : 
 - {{message}} : Le texte du message à afficher au joueur.
-- {{Nom-Item}} : Le nom d'item. La liste des items possibles se trouvent dans la classe "model.character.item.factory.ItemFactory".
+- {{Nom-Item}} : Le nom d'item. La liste des items possibles se trouvent dans la classe [ItemFactory]().
 - {{Identifiant-Case}} : CaseX + CaseY * Nombre-Case-Par-Ligne.
-- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste des types possbiles dans la classe "model.character.enemy.EnemyFactory"
-- {{Identifiant-Monstre}} : Un identifiant unique au monstre ajouté à la map, permettant de le référencer par la suite.
-- {{Type-NPC}} : Définit le type du NPC ou l'image associée à cet NPC. La liste des NPC possibles se trouve dans la classe "model.character.npc.TalkingNPC".
+- {{Type-Monstre}} : Le type du monstre. Vous pouvez trouver la liste des types possbiles dans la classe [EnemyFactory]().
+- {{Identifiant-Monstre}} : Un identifiant unique au monstre créé, permettant de le référencer par la suite.
+- {{Type-NPC}} : Définit le type du NPC ou l'image associée à cet NPC. La liste des NPC possibles se trouve dans la classe [TalkingNPC]().
 - {{Message-NPC}} : Le message affiché lorsqu'on parle à un NPC.
 - {{Type-Case}} : Le nouveau décor à placer sur la case (2601 pour rendre la case libre).
-- {{Nom-Map}} : Vous pouvez les retrouver dans la classe  "model.character.item.mapChange.MapChangerEnum".
-- {{Délai-Map}} : Nombre de cycles à attendre avant la prochaine action sur la map.
+- {{Nom-Map}} : Il existe actuellement 4 cartes différentes. Elles sont déclarées dans la classe [MapChangerEnum]().
+- {{Délai-Map}} : Nombre de cycles à attendre avant l'exécution de la prochaine action sur la map.
 - {{Délai-Scénario}} : Nombre de cycles à attendre avant la prochaine exécution du scénario.
-- {{Negation}} : Si cette variable est remplacé par "!", alors la négation sera appliquée sur la condition à vérifier. 
+- {{Négation}} : Si cette variable est remplacé par "!", alors la négation sera appliquée sur la condition à vérifier. 
 - {{HP-Monstre}} : Les points de vie d'un monstre. Ils sont égals à 0 si le monstre est mort.
 - {{Numéro-Ligne-Action}} : Numéro du ligne dans le fichier texte contenant le scénario.
 
-### Condition
+#### Conditions
 On peut combiner plusieurs conditions à l'aide des opérateurs logiques (AND ou OR). Ces opérateurs sont placés juste après la condition. La négation peut être appliquée sur une condition en utilisant le caractère "!".
-Les conditions compréhensible par ce jeu sont : 
+Les conditions compréhensibles par ce jeu sont : 
 - **Conditions sur le contenu d'une case** : Vérifie si une case :  
-	- Contient un item : C:{{Identifiant-Case}}:{{Negation}}:I.
-	- Est traversable : C:{{Identifiant-Case}}:{{Negation}}:W.
+	- Contient un item : C:{{Identifiant-Case}}:{{Négation}}:I.
+	- Est traversable : C:{{Identifiant-Case}}:{{Négation}}:W.
 - **Conditions sur les points du vie d'un monstre** : M:{{Identifiant-Monstre}}:{{Négation}}:{{HP-Monstre}}.
-- **Conditions sur la position du héro** : H:{{identifiant-Case}}:{{Negation}}:C.
-- **Conditions relatives à l'exécution d'un évenement** : O:{{Numéro-Ligne-Action}}:{{Negation}}:A. Cette condition ne sera vraie que lorsque l'événement situé à la ligne {{Numéro-Ligne-Action}} est exécuté dans sa totalité.
+- **Conditions sur la position du héro** : H:{{identifiant-Case}}:{{Négation}}:C.
+- **Conditions relatives à l'exécution d'un événement** : O:{{Numéro-Ligne-Action}}:{{Négation}}:A. Cette condition ne sera vraie que lorsque l'événement situé à la ligne {{Numéro-Ligne-Action}} est exécuté dans sa totalité.
 
 
-### Actions
-Il existe plusieurs types d'actions possibles, à savoir : 
+#### Actions
+Il existe plusieurs actions possibles, à savoir : 
 - **Affichage d'un message** : Dans ce cas là, la syntaxe utilisée est : S-m-{{message}}.
-- **Création** : En fonction de l'objet à créer, cette action peut être relative à : 
+- **Création d'un objet** : En fonction de l'objet à créer, cette action peut être relative à : 
 	- Un item : C-I-{{Nom-Item}}-{{Identifiant-Case}}. 
 	- Un monstre : C-M-{{Type-Monstre}}-{{Identifiant-Monstre}}-{{Identifiant-Case}}.
 	- Un NPC : C-N-{{Type-NPC}}-{{Message-NPC}}.
-- **Suppression** : La suppression peut être relative à plusieurs instances, à savoir :
+- **Suppression d'une instance** : La suppression peut être relative à plusieurs instances, à savoir :
 	- Un item : D-I--{{Identifiant-Case}}.
 	- Un monstre : D-M--{{Identifiant-Monstre}}.
 	- Une case : D-W--{{Type-Case}}-{{Identifiant-Case}}.
 	- Héro : D-H---, retire le joueur de la map sans le tuer. 
-- **Ajout** : 
+- **Modification du comportement du héro** : 
 	- Equiper un item au héro : A-I-{{Nom-Item}}--.
 	- Faire apparaître le héro sur la map, suite à une suppression par exemple : A-H--{Identifiant-Case}.
 - **Changement du Map** : M-C-{{Nom-Map}}.
 - **Retarder l'éxecution** : d- - -{{Nombre-Cycle}}-{{Delai-Secondes}}. Retarde l'exécution du jeu pendant un certain délai.
 
-### Exemples
-Evénement 		: Si l'événement à la ligne 2 est exécuté dans sa totalité, alors Afficher le messsage suivant : "Attention.
+#### Exemples
+Evénement 	: Si l'événement à la ligne 2 est exécuté dans sa totalité, alors affiche le messsage suivant : "Jeu : Attention, on reçoit une attaque de l'extérieur".
 Représentation 	: O:2: :A->S-m--Jeu : Attention, on reçoit une attaque de l'extérieur
 
-Evénement 		: Si les points de vie du boss sont inférieurs à 500, alors affiche le message "Tu m'as vaincu aujourd’hui" puis ouvre une porte à la case 58 puis retire le boss de la map.
+Evénement 	: Si les points de vie du boss sont inférieurs à 500, alors affiche le message "Tu m'as vaincu aujourd’hui" puis ouvre une porte à la case 58 puis retire le boss de la map.
 Représentation 	: M:boss: :500->S-m--Tu m'a vaincu aujourd’hui->D-W--2601-58->D-M--boss
 
-Evénement 		: Si l'ennemi identifié par ennemi1 est mort et que le héro est sur la case 1824, alors crée le boss sur la case 2016, puis retarde l'exécution du joueur de 40 cycles et du scénario de 35 cycles.
+Evénement 	: Si l'ennemi identifié par ennemi1 est mort et que le héro est sur la case 1824, alors crée le boss sur la case 2016, puis retarde l'exécution du joueur de 40 cycles et du scénario de 35 cycles.
 Représentation  : M:ennemi1: :0-AND-H:1824: :->C-M-NYANYANAY-boss-2016->d---40-35
 
 Pour plus de détails, vous pouvez consulter : 
 - **Scénarios prédéfinis** : [[LIEN]]
 - **Intrépreteur du scénario** : [[LIEN]]
 
-## Classes principales :
 ### Movable
 Movable est la classe principale dans ce jeu. En effet, movable représente tout objet pouvant se déplacer. Il existe deux sous classes abstraites qui étendent movable: Attaque et GameCharacter. La différence entre ces deux classes est qu'une instance de GameCharacter occupe une case, tandis qu'une instance d'attaque traverse la case sans l'occuper.
 
